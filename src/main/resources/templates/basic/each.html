@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>기본 테이블</h1>
+    <table border="1">
+        <tr>
+            <th>username</th>
+            <th>age</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}">username</td>
+            <td th:text="${user.age}">0</td>
+        </tr>
+<!--        뭔가 이터레이터 리스트 뿐 아니라 enum타입이라던가 다되고-->
+<!--        맵같은 경우에는 map.entry가 user에 저장이 된다.-->
+    </table>
+
+
+    <h1>반복상태 유지</h1>
+    <table border="1">
+        <tr>
+            <th>count</th>
+            <th>username</th>
+            <th>age</th>
+            <th>etc</th>
+        </tr>
+        <tr th:each="user, userStat : ${users}">
+<!--            userStat 현재 반복에 대한 상태-->
+<!--            user에는 객체가 들어가고 Stat에는 상태가 들어감-->
+<!--명시적으로 두번째 인자에 넣어줘도되고 객체하나에 stat이라고 넣어줘도된다.-->
+            <td th:text="${userStat.count}">username</td>
+
+
+            <td th:text="${user.username}">username</td>
+            <td th:text="${user.age}">0</td>
+            <td>
+                index = <span th:text="${userStat.index}"></span>
+<!--                index(0부터 시작하는 값)-->
+                count = <span th:text="${userStat.count}"></span>
+<!--                count 1부터 시작하는 값-->
+                size = <span th:text="${userStat.size}"></span>
+<!--                전체 사이즈size-->
+                even? = <span th:text="${userStat.even}"></span>
+                odd? = <span th:text="${userStat.odd}"></span>
+<!--                현재 루프가 짝수값이냐 홀수 값이냐?-->
+                first? = <span th:text="${userStat.first}"></span>
+                last? = <span th:text="${userStat.last}"></span>
+<!--                첫번째면 true 마지막이면 true-->
+                current = <span th:text="${userStat.current}"></span>
+<!--                현재 객체에 대해서 안내함-->
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

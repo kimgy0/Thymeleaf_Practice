@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <th:block th:each="user : ${users}">
+        <div>
+            사용자 이름1 <span th:text="${user.username}"></span>
+            사용자 나이1 <span th:text="${user.age}"></span>
+        </div>
+        <div>
+            요약 <span th:text="${user.username} + ' / ' + ${user.age}"></span>
+        </div>
+    </th:block>
+
+<!--    원래 each같은 경우에는 div태그 하나에만 들어가야 하나 -->
+<!--    each를 한번만쓰고 div를 두개씩 돌리고 싶은 경우에는-->
+<!--    블록 단위 th:Block을 이용해서 두개씩 돌리고싶은 태그를 감싸고-->
+<!--    블록태그에서 each를 써준다-->
+</body>
+</html>

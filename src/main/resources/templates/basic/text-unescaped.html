@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>text vs utext</h1>
+    <ul>
+        <li>th:text = <span th:text="${data}"></span></li>
+        <li>th:utext = <span th:utext="${data}"></span></li>
+<!--        utext는 이스케이프 출력하지말고 그냥 그대로 출력하라는 뜻-->
+    </ul>
+
+    <h1><span th:inline="none">[[...]] vs [(...)]</span> </h1>
+
+    <ul>
+        <li><span th:inline="none">[[...]]</span>[[${data}]]</li>
+        <li><span th:inline="none">[(...)]</span>[(${data})]</li>
+<!--        인라인으로 할 때는 저런식으로 [()] 로 적어줍니다-->
+    </ul>
+</body>
+</html>

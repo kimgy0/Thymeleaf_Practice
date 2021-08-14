@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var username = "[[${user.username}]]"; //userA
+        //쌍 따옴표를 넣어줘야하는 귀찮음.
+        var age = [[${user.age}]];              //10
+    //    자바스크립트에서는 변수에 태그를쓸 순 없으니까 밖에다가 적어주는걸로 ㄱㄱ
+
+        var username2 = /*[[${user.username}]]*/ "test username"
+    //      test username 이 값으로 들어가고 주석된 것은 아예주석처리됨.
+        /*
+               결과는 개발자도구로 열어보면
+               var username2= /* userA * / "test username" 이라고 찍혀
+         */
+
+        var user = [[${user}]]
+    //      객체를 넣고 싶을 때.
+        /*
+            이거는 유저객체 . toString()이라고 들어감.
+            쓰기가 어려움
+         */
+
+    </script>
+
+    <script th:inline = "javascript">
+        //=========================인라인 사용=======================
+        //문제점 해결
+
+        var username = [[${user.username}]];
+        //위에서 따옴표때문에 불편했는데 이거는 문자인걸 인식하고 자동으로 내삽해줘
+        var age = [[${user.age}]];
+
+        var username2 = /*[[${user.username}]]*/ "test name";
+        //실제 걍 html만 실행시켯을때는 testname이 위에처럼 들어가겠지만
+        //타임리프의 인라인 기능을 사용하게되면 주석안에있는 것을 타임리프가 인식하고
+        //userA를 값으로 변수에 삽입한다.
+
+        //객체
+        var user = [[${user}]]
+        //타임리프가 객체는 기존의 tostring 이 아닌 json을 넣어줍니다.
+
+        //만약에 쌍따옴표를 string에 넣고싶으면 \" 이스케이프로 이렇게 삽입해줘야함.
+    </script>
+
+    <script th:inline="javascript">
+        [# th:each="user, stat : ${users}"]
+        var user[[${stat.count}]] = [[${user}]];
+        [/]
+            //자바스크립트에서 each를 쓰고 싶을 때
+            //이런식으로 하면 다 알아서 렌더링해줌.
+
+        /**
+         * 결과 ----------------------
+         * <script>
+             var user1 = {"username":"userA","age":10};
+             var user2 = {"username":"userB","age":20};
+             var user3 = {"username":"userC","age":30};
+         */
+    </script>
+</body>
+</html>
