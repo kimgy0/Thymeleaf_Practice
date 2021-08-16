@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- 내 사이트가 전체적으로 무엇을 정해진 형식 안에 커스텀 할 것인가-->
+<!-- 공통 프레임이 있어도 사이트마다 조금씩은 다르게 하고싶을 때-->
+<head th:fragment="common_header(title, links)">
+
+    <title th:replace = "${title}">레이아웃 타이틀</title>
+<!--    타이틀을 다르게 하고싶을 때 or css같은 링크정보를 조금씩 다르게 하고싶을 때-->
+
+<!--    공통 -->
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/awesomeapp.css}">
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <script type="text/javascript" th:src="@{/sh/scripts/codebase.js}"></script>
+
+<!--    추가-->
+    <th:block th:replace="${links}"/>
+<!--    이쪽에 렌더링 시켜 넘어온 인자들을-->
+
+</head>

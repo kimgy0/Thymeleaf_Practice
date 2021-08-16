@@ -173,4 +173,5 @@ public class basic {
         addUsers(model);
         return "basic/javascript";
     }
+
 }

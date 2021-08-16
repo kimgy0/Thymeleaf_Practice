@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html th:fragment="layout (title, content)" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:replace="${title}">레이아웃 타이틀</title>
+</head>
+<body>
+    <h1>레이아웃 H1</h1>
+    <div th:replace = "${content}">
+        <p>레이아웃 컨텐츠</p>
+    </div>
+
+    <footer>
+        레이아웃 푸터
+    </footer>
+<!-- html 파일 전체가 다 바뀌어야 할 때.(고정된 양식)-->
+<!-- 100 개의 사이트가 있다고 가정하면
+     100 개의 사이트 푸터에는 레이아웃 푸터라는 글씨가 들어가야하고
+     컨텐츠와 타이틀을 제외한 나머지 영역은 100페이지가 구성을 같이 해야된다.-->
+</body>
+</html>

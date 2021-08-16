@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>상품 목록</h2>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    onclick="location.href='addForm.html'"
+                    th:onclick="|location.href='@{/basic/items/add}'|"
+                    type="button">상품 등록</button>
+        </div>
+    </div>
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>수량</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td><a href="item.html" th:href="@{/basic/items/{itemId}(itemId=${item.id})}" th:text="${item.id}">회원id</a></td>
+                <!-- th:href="@{/basic/items/${itemId}(itemId=${itme.id , query = test})-->
+                <!-- get 방식의 쿼리파라미터도 지원합니다.-->
+
+
+                <td><a href="item.html" th:href="@{|/basic/items/${item.id}|}" th:text="${item.itemName}">상품명</a></td>
+                <td th:text="${item.price}">10000</td>
+                <td th:text="${item.quantity}">10</td>
+
+                <!--        onclick="location.href='addForm.html'"-->
+                <!--        th:onclick="|location.href='@{/basic/items/add}'|"-->
+                <!--        여기에는 다음에 설명하는 리터럴 대체 문법이 사용되었다. 자세히 알아보자.-->
+                <!--        리터럴 대체 - |...|-->
+                <!--        |...| :이렇게 사용한다.-->
+                <!--        타임리프에서 문자와 표현식 등은 분리되어 있기 때문에 더해서 사용해야 한다.-->
+                <!--        <span th:text="'Welcome to our application, ' + ${user.name} + '!'">-->
+                <!--        다음과 같이 리터럴 대체 문법을 사용하면, 더하기 없이 편리하게 사용할 수 있다.-->
+                <!--        <span th:text="|Welcome to our application, ${user.name}!|">-->
+                <!--        결과를 다음과 같이 만들어야 하는데-->
+                <!--        location.href='/basic/items/add'-->
+                <!--        그냥 사용하면 문자와 표현식을 각각 따로 더해서 사용해야 하므로 다음과 같이 복잡해진다.-->
+                <!--        th:onclick="'location.href=' + '\'' + @{/basic/items/add} + '\''"-->
+                <!--        리터럴 대체 문법을 사용하면 다음과 같이 편리하게 사용할 수 있다.-->
+                <!--        th:onclick="|location.href='@{/basic/items/add}'|"-->
+                <!--        -->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>

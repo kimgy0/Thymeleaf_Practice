@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>부분 포함</h1>
+    <h2>부분 포함 insert</h2>
+    <div th:insert="~{template/fragment/footer :: copy}"></div>
+<!--    <footer th:fragment = "copy">-->
+<!--        푸터 자리 입니다.-->
+<!--        &lt;!&ndash;        카피라고 조각에 이름을 주는 것. &ndash;&gt;-->
+<!--    </footer>-->
+<!--    **** 경로 이름을 적고 파일을 적은 후 :: copy 조각 이름을 적어주면 됨 ****-->
+
+    <h2>부분 포함 replace</h2>
+    <div th:replace="~{template/fragment/footer :: copy}"></div>
+
+<!--    insert vs replace   -->
+<!--    insert는 div 안에 footer를 삽입하는 것이고     -->
+<!--    replace는 div를 footer로 대체하는 것을 의미한다. -->
+
+
+    <h2>부분 포함 단순 표현식</h2>
+    <div th:replace="template/fragment/footer :: copy"></div>
+
+
+    <h1>파라미터 사용</h1>
+    <div th:replace="~{template/fragment/footer :: copy('김','규') }"></div>
+
+
+</body>
+</html>

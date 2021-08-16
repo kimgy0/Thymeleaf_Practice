@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+    <body>
+        <div class="container">
+            <div class="py-5 text-center">
+                <h2>상품 상세</h2>
+            </div>
+
+
+            <h2 th:if="${param.status}" th:text="저장 완료"></h2>
+            <!-- 타임리프 자체에서 status라는 파라미터값 request.getparameter처럼 트루를 꺼내면 저장완료라는 문구가 뜨게함. ! -->
+
+
+            <div>
+                <label for="itemId">상품 ID</label>
+                <input type="text" id="itemId" name="itemId" class="form-control"
+                       value="1" th:value="${item.id}" readonly>
+            </div>
+            <div>
+                <label for="itemName">상품명</label>
+                <input type="text" id="itemName" name="itemName" class="form-control"
+                       value="상품A" th:value="${item.itemName}" readonly>
+            </div>
+            <div>
+                <label for="price">가격</label>
+                <input type="text" id="price" name="price" class="form-control"
+                       value="10000" th:value="${item.price}" readonly>
+            </div>
+            <div>
+                <label for="quantity">수량</label>
+                <input type="text" id="quantity" name="quantity" class="form-control"
+                       value="10" th:value="${item.quantity}" readonly>
+            </div>
+            <hr class="my-4">
+
+            <div>판매 여부부</div>
+            <div>
+                <div>
+                    <input type="checkbox" id="open" th:field="${item.open}" class="form-check-input" disabled>
+        <!--            나타낼 떄는 타임리프가 field를 써주게 되면 값이 있게되면
+                        checked를 자동으로 넣어준다. checke="checked"-->
+                    <label for="open" class="form-check-label"> 판매 오픈</label>
+                </div>
+            </div>
+
+            <div>
+                <div>등록 지역</div>
+                <div th:each="region : ${regions}" class="form-check form-check-inline">
+                    <input type="checkbox" th:field="${item.regions}" th:value="${region.key}" class="form-check-input" disabled>
+                    <!--         checke는 key값으로 regions에 안에 있는지 확인하고 있으면 checked속성을 추가           -->
+
+                    <label th:for="${#ids.prev('regions')}"
+                           th:text="${region.value}" class="form-check-label">서울</label>
+                    <!--
+                                    인풋의 경우 regions가 id값이 되는데 아이디는 유일해야하기 떄문에 regions1, regions2. ... 이런식으로
+                                    each가 돌아갈때마다 id값이 생성이 된다.
+
+                                    그러면 label은 id와 연결해야해서 id가 필요한데
+                                    이는 ids라는 내장객체가 해결을 해준다. 'regions'
+                    -->
+                </div>
+            </div>
+
+
+            <div>
+                <div>상품 종류</div>
+                <div th:each="type : ${itemTypes}" class="form-check form-check-inline">
+                    <input type="radio" th:field="${item.itemType}" th:value="${type.name()}"
+<!--                           값 value와 itemType이 같으면 checked를 넣어줍니다. -->
+                           class="form-check-input" disabled>
+                    <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label">BOOK</label>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div>
+                <div>배송 방식</div>
+                <select th:field="${item.deliveryCode}" class="form-select" disabled>
+
+                    <option value="">==배송 방식 선택==</option>
+
+                    <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.code}"
+                            th:text="${deliveryCode.displayName}">FAST</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button class="w-100 btn btn-primary btn-lg"
+                            onclick="location.href='editForm.html'"
+                            th:onclick="|location.href='@{/basic/items/{itemId}/edit(itemId=${item.id})}'|"
+                            type="button">상품 수정</button>
+                </div>
+                <div class="col">
+                    <button class="w-100 btn btn-secondary btn-lg"
+                            onclick="location.href='items.html'"
+                            th:onclick="|location.href='@{/basic/items}'|"
+                            type="button">목록으로</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
